@@ -1,4 +1,4 @@
-USE [PaymentData]
+п»їUSE [PaymentData]
 GO
 
 DECLARE @BankId UNIQUEIDENTIFIER = NEWID()
@@ -59,7 +59,7 @@ PRINT 'Cashbox: ' + CONVERT(varchar(10), @CashboxBalance)
 -- Client: 0
 -- Cashbox: 0
 
--- Авансовые платежи
+-- РђРІР°РЅСЃРѕРІС‹Рµ РїР»Р°С‚РµР¶Рё
 DECLARE @Category UNIQUEIDENTIFIER = '700AB7DD-72AE-4F01-A7E2-1DBC341ED4C2'
 
 DECLARE @PaymentId1 UNIQUEIDENTIFIER = NEWID()
@@ -69,22 +69,22 @@ DECLARE @PaymentId4 UNIQUEIDENTIFIER = NEWID()
 
 -- Payments
 INSERT dbo.Payment(Oid, Amount, Category, Project, Justification, Comment, Date, Payer, Payee, OptimisticLockField, GCRecord, CreateDate, CheckNumber, IsAuthorized, Number) 
-	VALUES (@PaymentId1, 400000, @Category, @ProjectId, NULL, N'Перевели денег поставщику для будущих закупок. Образовался долг банку.', '2010-05-05 00:00:00.000', @BankId, @SupplierId, NULL, NULL, '2010-05-05 00:00:00.000', N'31862', NULL, N'001')
+	VALUES (@PaymentId1, 400000, @Category, @ProjectId, NULL, N'РџРµСЂРµРІРµР»Рё РґРµРЅРµРі РїРѕСЃС‚Р°РІС‰РёРєСѓ РґР»СЏ Р±СѓРґСѓС‰РёС… Р·Р°РєСѓРїРѕРє. РћР±СЂР°Р·РѕРІР°Р»СЃСЏ РґРѕР»Рі Р±Р°РЅРєСѓ.', '2010-05-05 00:00:00.000', @BankId, @SupplierId, NULL, NULL, '2010-05-05 00:00:00.000', N'31862', NULL, N'001')
 
--- Закупка материалов
+-- Р—Р°РєСѓРїРєР° РјР°С‚РµСЂРёР°Р»РѕРІ
 SET @Category = '951FAEE9-8883-4AEF-8CB2-11AAC0A245E0'
 
 INSERT dbo.Payment(Oid, Amount, Category, Project, Justification, Comment, Date, Payer, Payee, OptimisticLockField, GCRecord, CreateDate, CheckNumber, IsAuthorized, Number) 
-	VALUES (@PaymentId2, 100000, @Category, @ProjectId, NULL, N'Для клиента приобрели материал. Поставщик нам должен меньше, а клиент должен за материалы.', '2010-06-06 00:00:00.000', @SupplierId, @ClientId, NULL, NULL, '2010-06-06 00:00:00.000', N'31863', NULL, N'002')
+	VALUES (@PaymentId2, 100000, @Category, @ProjectId, NULL, N'Р”Р»СЏ РєР»РёРµРЅС‚Р° РїСЂРёРѕР±СЂРµР»Рё РјР°С‚РµСЂРёР°Р». РџРѕСЃС‚Р°РІС‰РёРє РЅР°Рј РґРѕР»Р¶РµРЅ РјРµРЅСЊС€Рµ, Р° РєР»РёРµРЅС‚ РґРѕР»Р¶РµРЅ Р·Р° РјР°С‚РµСЂРёР°Р»С‹.', '2010-06-06 00:00:00.000', @SupplierId, @ClientId, NULL, NULL, '2010-06-06 00:00:00.000', N'31863', NULL, N'002')
 
 INSERT dbo.Payment(Oid, Amount, Category, Project, Justification, Comment, Date, Payer, Payee, OptimisticLockField, GCRecord, CreateDate, CheckNumber, IsAuthorized, Number) 
-	VALUES (@PaymentId3, 150000, @Category, @ProjectId, NULL, N'Клиент передал наличные для закупки материалов.', '2010-07-07 00:00:00.000', @ClientId, @CashboxId, NULL, NULL, '2010-07-07 00:00:00.000', N'31864', NULL, N'003')
+	VALUES (@PaymentId3, 150000, @Category, @ProjectId, NULL, N'РљР»РёРµРЅС‚ РїРµСЂРµРґР°Р» РЅР°Р»РёС‡РЅС‹Рµ РґР»СЏ Р·Р°РєСѓРїРєРё РјР°С‚РµСЂРёР°Р»РѕРІ.', '2010-07-07 00:00:00.000', @ClientId, @CashboxId, NULL, NULL, '2010-07-07 00:00:00.000', N'31864', NULL, N'003')
 
--- Возврат кредита
+-- Р’РѕР·РІСЂР°С‚ РєСЂРµРґРёС‚Р°
 SET @Category = 'AC03D0B4-8060-4E8D-BEF2-6B2382500DD0'
 
 INSERT dbo.Payment(Oid, Amount, Category, Project, Justification, Comment, Date, Payer, Payee, OptimisticLockField, GCRecord, CreateDate, CheckNumber, IsAuthorized, Number) 
-	VALUES (@PaymentId4, 100000, @Category, @ProjectId, NULL, N'Частично гасим кредит.', '2010-08-08 00:00:00.000', @CashboxId, @BankId, NULL, NULL, '2010-08-08 00:00:00.000', N'31865', NULL, N'004')
+	VALUES (@PaymentId4, 100000, @Category, @ProjectId, NULL, N'Р§Р°СЃС‚РёС‡РЅРѕ РіР°СЃРёРј РєСЂРµРґРёС‚.', '2010-08-08 00:00:00.000', @CashboxId, @BankId, NULL, NULL, '2010-08-08 00:00:00.000', N'31865', NULL, N'004')
 
 SET @BankBalance = (SELECT Balance FROM PaymentParticipant WHERE Oid = @BankId)
 SET @SupplierBalance = (SELECT Balance FROM PaymentParticipant WHERE Oid = @SupplierId)
